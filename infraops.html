@@ -1,0 +1,289 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ESPANHA // INFRA OPS ROADMAP</title>
+<style>
+:root{--bg:#06070b;--panel:#0c1018;--panel2:#101621;--line:#243043;--text:#dce7f4;--muted:#7e8ca1;--cyan:#00f5ff;--pink:#ff2bd6;--lime:#b6ff00;--orange:#ff9d00;--shadow:0 0 28px rgba(0,245,255,.08)}
+*{box-sizing:border-box} body{margin:0;background:radial-gradient(circle at 20% 0%,#101b2b 0,#06070b 35%,#040508 100%);color:var(--text);font:14px/1.5 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+body:before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.08;background-image:linear-gradient(rgba(0,245,255,.5) 1px,transparent 1px),linear-gradient(90deg,rgba(0,245,255,.5) 1px,transparent 1px);background-size:40px 40px}
+.wrap{max-width:1280px;margin:auto;padding:28px 20px 70px;position:relative}
+header{display:grid;grid-template-columns:1fr auto;gap:20px;align-items:end;border-bottom:1px solid var(--line);padding-bottom:22px}
+.kicker,.eyebrow{color:var(--cyan);letter-spacing:.18em;font-size:11px} h1{font-size:clamp(28px,5vw,58px);line-height:.95;margin:8px 0;text-shadow:0 0 18px rgba(0,245,255,.25)} h1 span{color:var(--pink)} .sub{color:var(--muted);max-width:800px}
+.panel{background:linear-gradient(145deg,rgba(16,22,33,.95),rgba(8,11,17,.95));border:1px solid var(--line);box-shadow:var(--shadow);border-radius:8px}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:18px 0} .stat{padding:15px} .stat b{font-size:24px;color:var(--cyan)} .stat small{display:block;color:var(--muted);margin-top:4px}
+.progress{height:8px;background:#151b25;border:1px solid #283343;border-radius:20px;overflow:hidden;margin-top:10px} .bar{height:100%;width:0;background:linear-gradient(90deg,var(--cyan),var(--pink));box-shadow:0 0 16px var(--cyan);transition:.3s}
+.toolbar{display:flex;flex-wrap:wrap;gap:8px;margin:16px 0} button,.filter{background:#0b111b;color:var(--text);border:1px solid #304054;padding:9px 12px;border-radius:5px;cursor:pointer;font:inherit} button:hover,.filter:hover{border-color:var(--cyan);color:var(--cyan)} .danger:hover{border-color:var(--pink);color:var(--pink)}
+.layout{display:grid;grid-template-columns:1fr 330px;gap:18px} .month{margin-bottom:18px;overflow:hidden} .month-head{padding:20px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;gap:20px} h2{margin:4px 0;font-size:22px} .month-head p{color:var(--muted);margin:0} .month-goal{max-width:420px;color:#9db0c7;padding:10px;border-left:2px solid var(--pink)}
+.week{border-bottom:1px solid #1b2432} .week:last-child{border-bottom:0} .week-head{display:flex;align-items:center;gap:12px;padding:13px 16px;cursor:pointer} .week-head h3{margin:0;font-size:15px;flex:1} .wk{color:var(--pink);font-weight:bold} .collapse{padding:2px 8px;border:0;background:transparent;color:var(--muted)} .week-body{padding:0 16px 17px} .topics{color:#a9b8c9;margin-top:0;border-left:2px solid #34465d;padding-left:12px}
+.checks{display:grid;gap:7px} .check{display:flex;gap:10px;align-items:flex-start;padding:8px 10px;background:#090e16;border:1px solid #172131;border-radius:4px;color:#bfcddd} .check:hover{border-color:#3a516d} input{accent-color:var(--cyan);margin-top:3px} .check input:checked+span{text-decoration:line-through;color:#566477} .lab{border-left:2px solid var(--lime)} .gate{border-left:2px solid var(--orange);color:#ffd99a}
+aside{position:sticky;top:15px;height:max-content} aside .panel{padding:16px;margin-bottom:12px} aside h3{margin:0 0 10px;color:var(--cyan);font-size:13px;letter-spacing:.1em} .resource{display:flex;justify-content:space-between;gap:8px;padding:9px 0;border-bottom:1px solid #182230;color:#b7c8da;text-decoration:none} .resource:hover{color:var(--cyan)} .resource b{color:var(--pink)} .principles{color:#9caec2} .principles li{margin:8px 0}
+footer{margin-top:18px;color:#58677b;text-align:center;font-size:11px} .hidden{display:none!important}
+@media(max-width:900px){header,.month-head{grid-template-columns:1fr;display:block}.layout{grid-template-columns:1fr}aside{position:static}.stats{grid-template-columns:repeat(2,1fr)}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+<div><div class="kicker">PROJECT // ESPAÑA · v2.0</div><h1>INFRA <span>OPS</span> // SIX MONTHS</h1><p class="sub">Checklist operacional para sair de “estudei” para <b>“sei me virar”</b>: construir → quebrar → diagnosticar → recuperar → automatizar → explicar.</p></div>
+<div class="panel" style="padding:14px"><div class="eyebrow">STATUS</div><div id="status">BOOTING...</div></div>
+</header>
+
+<div class="stats">
+<div class="stat panel"><b id="done">0</b><small>tarefas concluídas</small></div>
+<div class="stat panel"><b id="total">239</b><small>tarefas totais</small></div>
+<div class="stat panel"><b id="pct">0%</b><small>progresso global</small></div>
+<div class="stat panel"><b id="gates">0/6</b><small>gates vencidos</small></div>
+</div>
+<div class="panel" style="padding:10px"><div class="bar" id="bar"></div></div>
+
+<div class="toolbar">
+<button onclick="filterWeeks('all')">ALL</button>
+<button onclick="filterWeeks('pending')">PENDENTES</button>
+<button onclick="filterWeeks('done')">CONCLUÍDAS</button>
+<button onclick="expandAll()">EXPANDIR</button>
+<button onclick="collapseAll()">RECOLHER</button>
+<button onclick="exportState()">EXPORTAR SAVE</button>
+<button onclick="importState()">IMPORTAR SAVE</button>
+<button class="danger" onclick="resetState()">RESET</button>
+</div>
+
+<div class="layout">
+<main>
+
+    <article class="month" id="m1">
+      <div class="month-head"><div><div class="eyebrow">M1</div><h2>MÊS 01 — FUNDAMENTOS / OPS CORE</h2><p>Redes + Linux + troubleshooting</p></div><div class="month-goal">Sair do mês conseguindo diagnosticar conectividade e administrar um Linux remoto sem depender de tutorial.</div></div>
+      
+        <section class="week" data-month="m1">
+          <div class="week-head"><span class="wk">W01</span><h3>TCP/IP + CLI</h3><button class="collapse" type="button">⌄</button></div>
+          <div class="week-body">
+            <p class="topics">OSI vs TCP/IP; IPv4/CIDR; subnetting; TCP vs UDP; portas; terminal Linux</p>
+            <div class="checks"><label class="check"><input type="checkbox" data-id="t1"><span>OSI vs TCP/IP</span></label><label class="check"><input type="checkbox" data-id="t2"><span>IPv4/CIDR</span></label><label class="check"><input type="checkbox" data-id="t3"><span>subnetting</span></label><label class="check"><input type="checkbox" data-id="t4"><span>TCP vs UDP</span></label><label class="check"><input type="checkbox" data-id="t5"><span>portas</span></label><label class="check"><input type="checkbox" data-id="t6"><span>terminal Linux</span></label><label class="check lab"><input type="checkbox" data-id="t7"><span>LAB · Desenhar uma rede /24 e dividir em 4 sub-redes</span></label><label class="check lab"><input type="checkbox" data-id="t8"><span>LAB · Usar ping, ip addr, ip route, ss e traceroute</span></label><label class="check lab"><input type="checkbox" data-id="t9"><span>LAB · Explicar TCP 3-way handshake sem consultar material</span></label><label class="check gate"><input type="checkbox" data-id="t10"><span>GATE · Consigo explicar o caminho de um pacote e descobrir se o problema é IP, rota ou porta.</span></label></div>
+          </div>
+        </section>
+        <section class="week" data-month="m1">
+          <div class="week-head"><span class="wk">W02</span><h3>DNS + HTTP</h3><button class="collapse" type="button">⌄</button></div>
+          <div class="week-body">
+            <p class="topics">DNS recursivo/autoritativo; A/AAAA/CNAME/MX/TXT/NS/SOA; TTL; HTTP; headers; status; TLS</p>
+            <div class="checks"><label class="check"><input type="checkbox" data-id="t11"><span>DNS recursivo/autoritativo</span></label><label class="check"><input type="checkbox" data-id="t12"><span>A/AAAA/CNAME/MX/TXT/NS/SOA</span></label><label class="check"><input type="checkbox" data-id="t13"><span>TTL</span></label><label class="check"><input type="checkbox" data-id="t14"><span>HTTP</span></label><label class="check"><input type="checkbox" data-id="t15"><span>headers</span></label><label class="check"><input type="checkbox" data-id="t16"><span>status</span></label><label class="check"><input type="checkbox" data-id="t17"><span>TLS</span></label><label class="check lab"><input type="checkbox" data-id="t18"><span>LAB · Investigar um domínio com dig + trace</span></label><label class="check lab"><input type="checkbox" data-id="t19"><span>LAB · Comparar curl -I e curl -v</span></label><label class="check lab"><input type="checkbox" data-id="t20"><span>LAB · Provocar e diagnosticar um erro 404, 403 e 502 em laboratório</span></label><label class="check gate"><input type="checkbox" data-id="t21"><span>GATE · Consigo investigar 'site não abre' separando DNS, TCP, TLS e HTTP.</span></label></div>
+          </div>
+        </section>
+        <section class="week" data-month="m1">
+          <div class="week-head"><span class="wk">W03</span><h3>Linux admin</h3><button class="collapse" type="button">⌄</button></div>
+          <div class="week-body">
+            <p class="topics">FHS; permissões; usuários/grupos; sudo; processos; apt; systemd; journalctl</p>
+            <div class="checks"><label class="check"><input type="checkbox" data-id="t22"><span>FHS</span></label><label class="check"><input type="checkbox" data-id="t23"><span>permissões</span></label><label class="check"><input type="checkbox" data-id="t24"><span>usuários/grupos</span></label><label class="check"><input type="checkbox" data-id="t25"><span>sudo</span></label><label class="check"><input type="checkbox" data-id="t26"><span>processos</span></label><label class="check"><input type="checkbox" data-id="t27"><span>apt</span></label><label class="check"><input type="checkbox" data-id="t28"><span>systemd</span></label><label class="check"><input type="checkbox" data-id="t29"><span>journalctl</span></label><label class="check lab"><input type="checkbox" data-id="t30"><span>LAB · Criar usuário sem privilégio e conceder sudo de forma controlada</span></label><label class="check lab"><input type="checkbox" data-id="t31"><span>LAB · Criar uma unit .service</span></label><label class="check lab"><input type="checkbox" data-id="t32"><span>LAB · Encontrar a causa de um serviço que falha usando journalctl</span></label><label class="check gate"><input type="checkbox" data-id="t33"><span>GATE · Consigo operar um servidor Linux e explicar o que está acontecendo.</span></label></div>
+          </div>
+        </section>
+        <section class="week" data-month="m1">
+          <div class="week-head"><span class="wk">W04</span><h3>SSH + hardening + incidentes</h3><button class="collapse" type="button">⌄</button></div>
+          <div class="week-body">
+            <p class="topics">SSH keys; ssh config; firewall/ufw; logs; disco; cron; grep/sed/awk; fail2ban conceito</p>
+            <div class="checks"><label class="check"><input type="checkbox" data-id="t34"><span>SSH keys</span></label><label class="check"><input type="checkbox" data-id="t35"><span>ssh config</span></label><label class="check"><input type="checkbox" data-id="t36"><span>firewall/ufw</span></label><label class="check"><input type="checkbox" data-id="t37"><span>logs</span></label><label class="check"><input type="checkbox" data-id="t38"><span>disco</span></label><label class="check"><input type="checkbox" data-id="t39"><span>cron</span></label><label class="check"><input type="checkbox" data-id="t40"><span>grep/sed/awk</span></label><label class="check"><input type="checkbox" data-id="t41"><span>fail2ban conceito</span></label><label class="check lab"><input type="checkbox" data-id="t42"><span>LAB · Configurar acesso por chave</span></label><label class="check lab"><input type="checkbox" data-id="t43"><span>LAB · Aplicar firewall mínimo e testar portas</span></label><label class="check lab"><input type="checkbox" data-id="t44"><span>LAB · Criar 3 incidentes artificiais e documentar causa/solução</span></label><label class="check gate"><input type="checkbox" data-id="t45"><span>GATE · GATE 01: consigo entrar, proteger, observar e recuperar um servidor Linux.</span></label></div>
+          </div>
+        </section>
+    </article>
+    <article class="month" id="m2">
+      <div class="month-head"><div><div class="eyebrow">M2</div><h2>MÊS 02 — GIT + DOCKER / BUILD</h2><p>Versionamento + containers + APIs</p></div><div class="month-goal">Transformar conhecimento de infra em artefatos reproduzíveis e versionados.</div></div>
+      
+        <section class="week" data-month="m2">
+          <div class="week-head"><span class="wk">W05</span><h3>Git de verdade</h3><button class="collapse" type="button">⌄</button></div>
+          <div class="week-body">
+            <p class="topics">init/clone/add/commit/log/diff; branches; merge; conflitos; .gitignore</p>
+            <div class="checks"><label class="check"><input type="checkbox" data-id="t46"><span>init/clone/add/commit/log/diff</span></label><label class="check"><input type="checkbox" data-id="t47"><span>branches</span></label><label class="check"><input type="checkbox" data-id="t48"><span>merge</span></label><label class="check"><input type="checkbox" data-id="t49"><span>conflitos</span></label><label class="check"><input type="checkbox" data-id="t50"><span>.gitignore</span></label><label class="check lab"><input type="checkbox" data-id="t51"><span>LAB · Criar repo do ISP Infrastructure Lab</span></label><label class="check lab"><input type="checkbox" data-id="t52"><span>LAB · Resolver conflito real entre duas branches</span></label><label class="check lab"><input type="checkbox" data-id="t53"><span>LAB · Escrever commits que contam uma história</span></label><label class="check gate"><input type="checkbox" data-id="t54"><span>GATE · Consigo trabalhar em Git sem medo de branch, conflito ou histórico.</span></label></div>
+          </div>
+        </section>
+        <section class="week" data-month="m2">
+          <div class="week-head"><span class="wk">W06</span><h3>GitHub como vitrine</h3><button class="collapse" type="button">⌄</button></div>
+          <div class="week-body">
+            <p class="topics">README; Issues; PR; releases; organização; documentação técnica em inglês</p>
+            <div class="checks"><label class="check"><input type="checkbox" data-id="t55"><span>README</span></label><label class="check"><input type="checkbox" data-id="t56"><span>Issues</span></label><label class="check"><input type="checkbox" data-id="t57"><span>PR</span></label><label class="check"><input type="checkbox" data-id="t58"><span>releases</span></label><label class="check"><input type="checkbox" data-id="t59"><span>organização</span></label><label class="check"><input type="checkbox" data-id="t60"><span>documentação técnica em inglês</span></label><label class="check lab"><input type="checkbox" data-id="t61"><span>LAB · Criar README com arquitetura e troubleshooting</span></label><label class="check lab"><input type="checkbox" data-id="t62"><span>LAB · Abrir e revisar um PR</span></label><label class="check lab"><input type="checkbox" data-id="t63"><span>LAB · Criar release/tag do laboratório</span></label><label class="check gate"><input type="checkbox" data-id="t64"><span>GATE · Um terceiro consegue clonar o projeto e entender como operar.</span></label></div>
+          </div>
+        </section>
+        <section class="week" data-month="m2">
+          <div class="week-head"><span class="wk">W07</span><h3>Docker core</h3><button class="collapse" type="button">⌄</button></div>
+          <div class="week-body">
+            <p class="topics">imagem/container/registry; layers; Dockerfile; volumes; redes; logs; exec</p>
+            <div class="checks"><label class="check"><input type="checkbox" data-id="t65"><span>imagem/container/registry</span></label><label class="check"><input type="checkbox" data-id="t66"><span>layers</span></label><label class="check"><input type="checkbox" data-id="t67"><span>Dockerfile</span></label><label class="check"><input type="checkbox" data-id="t68"><span>volumes</span></label><label class="check"><input type="checkbox" data-id="t69"><span>redes</span></label><label class="check"><input type="checkbox" data-id="t70"><span>logs</span></label><label class="check"><input type="checkbox" data-id="t71"><span>exec</span></label><label class="check lab"><input type="checkbox" data-id="t72"><span>LAB · Containerizar uma aplicação simples</span></label><label class="check lab"><input type="checkbox" data-id="t73"><span>LAB · Persistir dados com volume</span></label><label class="check lab"><input type="checkbox" data-id="t74"><span>LAB · Diagnosticar container que inicia e morre</span></label><label class="check gate"><input type="checkbox" data-id="t75"><span>GATE · Consigo criar, inspecionar, depurar e otimizar uma imagem básica.</span></label></div>
+          </div>
+        </section>
+        <section class="week" data-month="m2">
+          <div class="week-head"><span class="wk">W08</span><h3>Compose + API</h3><button class="collapse" type="button">⌄</button></div>
+          <div class="week-body">
+            <p class="topics">Compose; multi-container; env; healthcheck; curl; APIs; auth; webhooks</p>
+            <div class="checks"><label class="check"><input type="checkbox" data-id="t76"><span>Compose</span></label><label class="check"><input type="checkbox" data-id="t77"><span>multi-container</span></label><label class="check"><input type="checkbox" data-id="t78"><span>env</span></label><label class="check"><input type="checkbox" data-id="t79"><span>healthcheck</span></label><label class="check"><input type="checkbox" data-id="t80"><span>curl</span></label><label class="check"><input type="checkbox" data-id="t81"><span>APIs</span></label><label class="check"><input type="checkbox" data-id="t82"><span>auth</span></label><label class="check"><input type="checkbox" data-id="t83"><span>webhooks</span></label><label class="check lab"><input type="checkbox" data-id="t84"><span>LAB · Subir app + banco + proxy</span></label><label class="check lab"><input type="checkbox" data-id="t85"><span>LAB · Testar API com curl e JSON</span></label><label class="check lab"><input type="checkbox" data-id="t86"><span>LAB · Criar health endpoint e documentar API</span></label><label class="check gate"><input type="checkbox" data-id="t87"><span>GATE · GATE 02: consigo levantar uma stack multi-container e explicar sua rede.</span></label></div>
+          </div>
+        </section>
+    </article>
+    <article class="month" id="m3">
+      <div class="month-head"><div><div class="eyebrow">M3</div><h2>MÊS 03 — AWS / CLOUD</h2><p>Cloud fundamentals + arquitetura mínima segura</p></div><div class="month-goal">Sair do console com entendimento de rede, identidade, compute e storage na AWS.</div></div>
+      
+        <section class="week" data-month="m3">
+          <div class="week-head"><span class="wk">W09</span><h3>Cloud + IAM</h3><button class="collapse" type="button">⌄</button></div>
+          <div class="week-body">
+            <p class="topics">IaaS/PaaS/SaaS; regiões/AZ; responsabilidade compartilhada; IAM users/roles/policies</p>
+            <div class="checks"><label class="check"><input type="checkbox" data-id="t88"><span>IaaS/PaaS/SaaS</span></label><label class="check"><input type="checkbox" data-id="t89"><span>regiões/AZ</span></label><label class="check"><input type="checkbox" data-id="t90"><span>responsabilidade compartilhada</span></label><label class="check"><input type="checkbox" data-id="t91"><span>IAM users/roles/policies</span></label><label class="check lab"><input type="checkbox" data-id="t92"><span>LAB · Criar identidade de laboratório com privilégio mínimo</span></label><label class="check lab"><input type="checkbox" data-id="t93"><span>LAB · Ler e escrever policy JSON simples</span></label><label class="check lab"><input type="checkbox" data-id="t94"><span>LAB · Explicar user vs role</span></label><label class="check gate"><input type="checkbox" data-id="t95"><span>GATE · Consigo explicar quem pode fazer o quê e por quê.</span></label></div>
+          </div>
+        </section>
+        <section class="week" data-month="m3">
+          <div class="week-head"><span class="wk">W10</span><h3>VPC + networking</h3><button class="collapse" type="button">⌄</button></div>
+          <div class="week-body">
+            <p class="topics">VPC/CIDR; subnets públicas/privadas; route tables; IGW; NAT; SG vs NACL</p>
+            <div class="checks"><label class="check"><input type="checkbox" data-id="t96"><span>VPC/CIDR</span></label><label class="check"><input type="checkbox" data-id="t97"><span>subnets públicas/privadas</span></label><label class="check"><input type="checkbox" data-id="t98"><span>route tables</span></label><label class="check"><input type="checkbox" data-id="t99"><span>IGW</span></label><label class="check"><input type="checkbox" data-id="t100"><span>NAT</span></label><label class="check"><input type="checkbox" data-id="t101"><span>SG vs NACL</span></label><label class="check lab"><input type="checkbox" data-id="t102"><span>LAB · Desenhar VPC antes de criar</span></label><label class="check lab"><input type="checkbox" data-id="t103"><span>LAB · Criar subnets e rotas</span></label><label class="check lab"><input type="checkbox" data-id="t104"><span>LAB · Testar tráfego permitido/bloqueado</span></label><label class="check gate"><input type="checkbox" data-id="t105"><span>GATE · Consigo olhar uma VPC e explicar o caminho do tráfego.</span></label></div>
+          </div>
+        </section>
+        <section class="week" data-month="m3">
+          <div class="week-head"><span class="wk">W11</span><h3>EC2 + S3</h3><button class="collapse" type="button">⌄</button></div>
+          <div class="week-body">
+            <p class="topics">AMI; key pair; user data; IP público/privado; S3; EBS/EFS; custo</p>
+            <div class="checks"><label class="check"><input type="checkbox" data-id="t106"><span>AMI</span></label><label class="check"><input type="checkbox" data-id="t107"><span>key pair</span></label><label class="check"><input type="checkbox" data-id="t108"><span>user data</span></label><label class="check"><input type="checkbox" data-id="t109"><span>IP público/privado</span></label><label class="check"><input type="checkbox" data-id="t110"><span>S3</span></label><label class="check"><input type="checkbox" data-id="t111"><span>EBS/EFS</span></label><label class="check"><input type="checkbox" data-id="t112"><span>custo</span></label><label class="check lab"><input type="checkbox" data-id="t113"><span>LAB · Subir EC2 com bootstrap</span></label><label class="check lab"><input type="checkbox" data-id="t114"><span>LAB · Hospedar artefato no S3</span></label><label class="check lab"><input type="checkbox" data-id="t115"><span>LAB · Configurar billing/cost alert antes do laboratório</span></label><label class="check gate"><input type="checkbox" data-id="t116"><span>GATE · Consigo provisionar uma VM e storage sem abrir tudo para a internet.</span></label></div>
+          </div>
+        </section>
+        <section class="week" data-month="m3">
+          <div class="week-head"><span class="wk">W12</span><h3>Cloud operations</h3><button class="collapse" type="button">⌄</button></div>
+          <div class="week-body">
+            <p class="topics">CloudWatch; logs; métricas; alarms; backups; RPO/RTO; troubleshooting</p>
+            <div class="checks"><label class="check"><input type="checkbox" data-id="t117"><span>CloudWatch</span></label><label class="check"><input type="checkbox" data-id="t118"><span>logs</span></label><label class="check"><input type="checkbox" data-id="t119"><span>métricas</span></label><label class="check"><input type="checkbox" data-id="t120"><span>alarms</span></label><label class="check"><input type="checkbox" data-id="t121"><span>backups</span></label><label class="check"><input type="checkbox" data-id="t122"><span>RPO/RTO</span></label><label class="check"><input type="checkbox" data-id="t123"><span>troubleshooting</span></label><label class="check lab"><input type="checkbox" data-id="t124"><span>LAB · Criar alarme útil</span></label><label class="check lab"><input type="checkbox" data-id="t125"><span>LAB · Enviar/consultar logs</span></label><label class="check lab"><input type="checkbox" data-id="t126"><span>LAB · Simular falha de serviço e produzir post-mortem</span></label><label class="check gate"><input type="checkbox" data-id="t127"><span>GATE · GATE 03: consigo operar uma pequena arquitetura AWS e diagnosticar falhas.</span></label></div>
+          </div>
+        </section>
+    </article>
+    <article class="month" id="m4">
+      <div class="month-head"><div><div class="eyebrow">M4</div><h2>MÊS 04 — TERRAFORM / IaC</h2><p>Infraestrutura como código + repetibilidade</p></div><div class="month-goal">Parar de 'clicar infraestrutura' e começar a tratar infra como software.</div></div>
+      
+        <section class="week" data-month="m4">
+          <div class="week-head"><span class="wk">W13</span><h3>Terraform core</h3><button class="collapse" type="button">⌄</button></div>
+          <div class="week-body">
+            <p class="topics">IaC; providers; resources; data; init/plan/apply/destroy; state</p>
+            <div class="checks"><label class="check"><input type="checkbox" data-id="t128"><span>IaC</span></label><label class="check"><input type="checkbox" data-id="t129"><span>providers</span></label><label class="check"><input type="checkbox" data-id="t130"><span>resources</span></label><label class="check"><input type="checkbox" data-id="t131"><span>data</span></label><label class="check"><input type="checkbox" data-id="t132"><span>init/plan/apply/destroy</span></label><label class="check"><input type="checkbox" data-id="t133"><span>state</span></label><label class="check lab"><input type="checkbox" data-id="t134"><span>LAB · Criar EC2/VPC via Terraform</span></label><label class="check lab"><input type="checkbox" data-id="t135"><span>LAB · Ler terraform plan antes de aplicar</span></label><label class="check lab"><input type="checkbox" data-id="t136"><span>LAB · Destruir e recriar com segurança</span></label><label class="check gate"><input type="checkbox" data-id="t137"><span>GATE · Entendo o ciclo declarativo e não trato state como arquivo qualquer.</span></label></div>
+          </div>
+        </section>
+        <section class="week" data-month="m4">
+          <div class="week-head"><span class="wk">W14</span><h3>Variáveis + outputs</h3><button class="collapse" type="button">⌄</button></div>
+          <div class="week-body">
+            <p class="topics">variables; locals; outputs; tfvars; data sources; expressions</p>
+            <div class="checks"><label class="check"><input type="checkbox" data-id="t138"><span>variables</span></label><label class="check"><input type="checkbox" data-id="t139"><span>locals</span></label><label class="check"><input type="checkbox" data-id="t140"><span>outputs</span></label><label class="check"><input type="checkbox" data-id="t141"><span>tfvars</span></label><label class="check"><input type="checkbox" data-id="t142"><span>data sources</span></label><label class="check"><input type="checkbox" data-id="t143"><span>expressions</span></label><label class="check lab"><input type="checkbox" data-id="t144"><span>LAB · Parametrizar região/CIDR/tamanho</span></label><label class="check lab"><input type="checkbox" data-id="t145"><span>LAB · Exportar IPs/IDs como outputs</span></label><label class="check lab"><input type="checkbox" data-id="t146"><span>LAB · Separar configuração de código</span></label><label class="check gate"><input type="checkbox" data-id="t147"><span>GATE · Consigo reutilizar configuração sem copiar/colar.</span></label></div>
+          </div>
+        </section>
+        <section class="week" data-month="m4">
+          <div class="week-head"><span class="wk">W15</span><h3>Módulos + state</h3><button class="collapse" type="button">⌄</button></div>
+          <div class="week-body">
+            <p class="topics">módulos; remote state conceito; locking; estrutura de projeto</p>
+            <div class="checks"><label class="check"><input type="checkbox" data-id="t148"><span>módulos</span></label><label class="check"><input type="checkbox" data-id="t149"><span>remote state conceito</span></label><label class="check"><input type="checkbox" data-id="t150"><span>locking</span></label><label class="check"><input type="checkbox" data-id="t151"><span>estrutura de projeto</span></label><label class="check lab"><input type="checkbox" data-id="t152"><span>LAB · Extrair VPC para módulo</span></label><label class="check lab"><input type="checkbox" data-id="t153"><span>LAB · Documentar inputs/outputs</span></label><label class="check lab"><input type="checkbox" data-id="t154"><span>LAB · Explicar por que state remoto existe</span></label><label class="check gate"><input type="checkbox" data-id="t155"><span>GATE · Consigo organizar Terraform como projeto, não como main.tf gigante.</span></label></div>
+          </div>
+        </section>
+        <section class="week" data-month="m4">
+          <div class="week-head"><span class="wk">W16</span><h3>Lab IaC completo</h3><button class="collapse" type="button">⌄</button></div>
+          <div class="week-body">
+            <p class="topics">VPC + EC2 + SG + S3; segurança; destroy; documentação</p>
+            <div class="checks"><label class="check"><input type="checkbox" data-id="t156"><span>VPC + EC2 + SG + S3</span></label><label class="check"><input type="checkbox" data-id="t157"><span>segurança</span></label><label class="check"><input type="checkbox" data-id="t158"><span>destroy</span></label><label class="check"><input type="checkbox" data-id="t159"><span>documentação</span></label><label class="check lab"><input type="checkbox" data-id="t160"><span>LAB · Recriar o ambiente inteiro do zero</span></label><label class="check lab"><input type="checkbox" data-id="t161"><span>LAB · Fazer mudança controlada via plan</span></label><label class="check lab"><input type="checkbox" data-id="t162"><span>LAB · Documentar arquitetura e custos</span></label><label class="check gate"><input type="checkbox" data-id="t163"><span>GATE · GATE 04: um comando reproduz uma infraestrutura que antes exigia vários cliques.</span></label></div>
+          </div>
+        </section>
+    </article>
+    <article class="month" id="m5">
+      <div class="month-head"><div><div class="eyebrow">M5</div><h2>MÊS 05 — CI/CD + OBSERVABILIDADE</h2><p>Automação de entrega + métricas + logs</p></div><div class="month-goal">Fazer código chegar ao ambiente de forma automática e observável.</div></div>
+      
+        <section class="week" data-month="m5">
+          <div class="week-head"><span class="wk">W17</span><h3>GitHub Actions</h3><button class="collapse" type="button">⌄</button></div>
+          <div class="week-body">
+            <p class="topics">workflow YAML; triggers; jobs; steps; runners; artifacts; secrets</p>
+            <div class="checks"><label class="check"><input type="checkbox" data-id="t164"><span>workflow YAML</span></label><label class="check"><input type="checkbox" data-id="t165"><span>triggers</span></label><label class="check"><input type="checkbox" data-id="t166"><span>jobs</span></label><label class="check"><input type="checkbox" data-id="t167"><span>steps</span></label><label class="check"><input type="checkbox" data-id="t168"><span>runners</span></label><label class="check"><input type="checkbox" data-id="t169"><span>artifacts</span></label><label class="check"><input type="checkbox" data-id="t170"><span>secrets</span></label><label class="check lab"><input type="checkbox" data-id="t171"><span>LAB · Pipeline em push/PR</span></label><label class="check lab"><input type="checkbox" data-id="t172"><span>LAB · Rodar testes automaticamente</span></label><label class="check lab"><input type="checkbox" data-id="t173"><span>LAB · Separar secrets do código</span></label><label class="check gate"><input type="checkbox" data-id="t174"><span>GATE · Consigo ler e escrever workflow sem copiar cegamente.</span></label></div>
+          </div>
+        </section>
+        <section class="week" data-month="m5">
+          <div class="week-head"><span class="wk">W18</span><h3>Build + registry + deploy</h3><button class="collapse" type="button">⌄</button></div>
+          <div class="week-body">
+            <p class="topics">Docker build; tags; registry; deploy; rollback básico</p>
+            <div class="checks"><label class="check"><input type="checkbox" data-id="t175"><span>Docker build</span></label><label class="check"><input type="checkbox" data-id="t176"><span>tags</span></label><label class="check"><input type="checkbox" data-id="t177"><span>registry</span></label><label class="check"><input type="checkbox" data-id="t178"><span>deploy</span></label><label class="check"><input type="checkbox" data-id="t179"><span>rollback básico</span></label><label class="check lab"><input type="checkbox" data-id="t180"><span>LAB · Buildar imagem no CI</span></label><label class="check lab"><input type="checkbox" data-id="t181"><span>LAB · Publicar imagem no registry</span></label><label class="check lab"><input type="checkbox" data-id="t182"><span>LAB · Deployar versão nova e voltar para anterior</span></label><label class="check gate"><input type="checkbox" data-id="t183"><span>GATE · Consigo explicar o caminho commit → imagem → ambiente.</span></label></div>
+          </div>
+        </section>
+        <section class="week" data-month="m5">
+          <div class="week-head"><span class="wk">W19</span><h3>Prometheus + Grafana</h3><button class="collapse" type="button">⌄</button></div>
+          <div class="week-body">
+            <p class="topics">logs vs métricas vs traces; scrape; PromQL básico; dashboards; alerts</p>
+            <div class="checks"><label class="check"><input type="checkbox" data-id="t184"><span>logs vs métricas vs traces</span></label><label class="check"><input type="checkbox" data-id="t185"><span>scrape</span></label><label class="check"><input type="checkbox" data-id="t186"><span>PromQL básico</span></label><label class="check"><input type="checkbox" data-id="t187"><span>dashboards</span></label><label class="check"><input type="checkbox" data-id="t188"><span>alerts</span></label><label class="check lab"><input type="checkbox" data-id="t189"><span>LAB · Instrumentar métricas essenciais</span></label><label class="check lab"><input type="checkbox" data-id="t190"><span>LAB · Criar dashboard de serviço</span></label><label class="check lab"><input type="checkbox" data-id="t191"><span>LAB · Criar alerta acionável</span></label><label class="check gate"><input type="checkbox" data-id="t192"><span>GATE · Consigo responder 'está lento ou está fora?' usando sinais observáveis.</span></label></div>
+          </div>
+        </section>
+        <section class="week" data-month="m5">
+          <div class="week-head"><span class="wk">W20</span><h3>Failure engineering</h3><button class="collapse" type="button">⌄</button></div>
+          <div class="week-body">
+            <p class="topics">health checks; readiness/liveness conceito; incidentes; post-mortem</p>
+            <div class="checks"><label class="check"><input type="checkbox" data-id="t193"><span>health checks</span></label><label class="check"><input type="checkbox" data-id="t194"><span>readiness/liveness conceito</span></label><label class="check"><input type="checkbox" data-id="t195"><span>incidentes</span></label><label class="check"><input type="checkbox" data-id="t196"><span>post-mortem</span></label><label class="check lab"><input type="checkbox" data-id="t197"><span>LAB · Quebrar dependência</span></label><label class="check lab"><input type="checkbox" data-id="t198"><span>LAB · Quebrar porta/firewall</span></label><label class="check lab"><input type="checkbox" data-id="t199"><span>LAB · Quebrar container e recuperar</span></label><label class="check gate"><input type="checkbox" data-id="t200"><span>GATE · GATE 05: consigo detectar, investigar e recuperar uma falha usando sinais.</span></label></div>
+          </div>
+        </section>
+    </article>
+    <article class="month" id="m6">
+      <div class="month-head"><div><div class="eyebrow">M6</div><h2>MÊS 06 — PRODUÇÃO / PORTFÓLIO / ESPANHA</h2><p>Hardening + arquitetura + entrevista + mercado</p></div><div class="month-goal">Chegar ao 'sei me virar': construir, explicar, quebrar, recuperar e apresentar o projeto em inglês.</div></div>
+      
+        <section class="week" data-month="m6">
+          <div class="week-head"><span class="wk">W21</span><h3>Produção segura</h3><button class="collapse" type="button">⌄</button></div>
+          <div class="week-body">
+            <p class="topics">least privilege; secrets; dependency scanning conceito; backup; DR; RPO/RTO</p>
+            <div class="checks"><label class="check"><input type="checkbox" data-id="t201"><span>least privilege</span></label><label class="check"><input type="checkbox" data-id="t202"><span>secrets</span></label><label class="check"><input type="checkbox" data-id="t203"><span>dependency scanning conceito</span></label><label class="check"><input type="checkbox" data-id="t204"><span>backup</span></label><label class="check"><input type="checkbox" data-id="t205"><span>DR</span></label><label class="check"><input type="checkbox" data-id="t206"><span>RPO/RTO</span></label><label class="check lab"><input type="checkbox" data-id="t207"><span>LAB · Auditar IAM/SG/SSH</span></label><label class="check lab"><input type="checkbox" data-id="t208"><span>LAB · Remover secrets do histórico</span></label><label class="check lab"><input type="checkbox" data-id="t209"><span>LAB · Testar restore de backup</span></label><label class="check gate"><input type="checkbox" data-id="t210"><span>GATE · Consigo apontar riscos óbvios antes de colocar algo em produção.</span></label></div>
+          </div>
+        </section>
+        <section class="week" data-month="m6">
+          <div class="week-head"><span class="wk">W22</span><h3>Estratégias de deploy</h3><button class="collapse" type="button">⌄</button></div>
+          <div class="week-body">
+            <p class="topics">rolling; blue-green; canary conceito; health checks; rollback</p>
+            <div class="checks"><label class="check"><input type="checkbox" data-id="t211"><span>rolling</span></label><label class="check"><input type="checkbox" data-id="t212"><span>blue-green</span></label><label class="check"><input type="checkbox" data-id="t213"><span>canary conceito</span></label><label class="check"><input type="checkbox" data-id="t214"><span>health checks</span></label><label class="check"><input type="checkbox" data-id="t215"><span>rollback</span></label><label class="check lab"><input type="checkbox" data-id="t216"><span>LAB · Documentar estratégia escolhida</span></label><label class="check lab"><input type="checkbox" data-id="t217"><span>LAB · Executar rollback</span></label><label class="check lab"><input type="checkbox" data-id="t218"><span>LAB · Definir critérios de sucesso/falha</span></label><label class="check gate"><input type="checkbox" data-id="t219"><span>GATE · Consigo justificar uma estratégia de deploy em entrevista.</span></label></div>
+          </div>
+        </section>
+        <section class="week" data-month="m6">
+          <div class="week-head"><span class="wk">W23</span><h3>Portfolio final</h3><button class="collapse" type="button">⌄</button></div>
+          <div class="week-body">
+            <p class="topics">README; arquitetura; ADRs; screenshots; custos; troubleshooting; GitHub pins</p>
+            <div class="checks"><label class="check"><input type="checkbox" data-id="t220"><span>README</span></label><label class="check"><input type="checkbox" data-id="t221"><span>arquitetura</span></label><label class="check"><input type="checkbox" data-id="t222"><span>ADRs</span></label><label class="check"><input type="checkbox" data-id="t223"><span>screenshots</span></label><label class="check"><input type="checkbox" data-id="t224"><span>custos</span></label><label class="check"><input type="checkbox" data-id="t225"><span>troubleshooting</span></label><label class="check"><input type="checkbox" data-id="t226"><span>GitHub pins</span></label><label class="check lab"><input type="checkbox" data-id="t227"><span>LAB · Fechar ISP Infrastructure Lab</span></label><label class="check lab"><input type="checkbox" data-id="t228"><span>LAB · Criar diagrama de arquitetura</span></label><label class="check lab"><input type="checkbox" data-id="t229"><span>LAB · Escrever 3 incident reports</span></label><label class="check gate"><input type="checkbox" data-id="t230"><span>GATE · Outra pessoa consegue reproduzir o projeto sem minha presença.</span></label></div>
+          </div>
+        </section>
+        <section class="week" data-month="m6">
+          <div class="week-head"><span class="wk">W24</span><h3>Interview + final gate</h3><button class="collapse" type="button">⌄</button></div>
+          <div class="week-body">
+            <p class="topics">URL lifecycle; system thinking; troubleshooting; inglês técnico; currículo/LinkedIn</p>
+            <div class="checks"><label class="check"><input type="checkbox" data-id="t231"><span>URL lifecycle</span></label><label class="check"><input type="checkbox" data-id="t232"><span>system thinking</span></label><label class="check"><input type="checkbox" data-id="t233"><span>troubleshooting</span></label><label class="check"><input type="checkbox" data-id="t234"><span>inglês técnico</span></label><label class="check"><input type="checkbox" data-id="t235"><span>currículo/LinkedIn</span></label><label class="check lab"><input type="checkbox" data-id="t236"><span>LAB · Explicar o projeto em 2 minutos em inglês</span></label><label class="check lab"><input type="checkbox" data-id="t237"><span>LAB · Responder 15 perguntas técnicas</span></label><label class="check lab"><input type="checkbox" data-id="t238"><span>LAB · Fazer uma sessão de troubleshooting sem tutorial</span></label><label class="check gate"><input type="checkbox" data-id="t239"><span>GATE · FINAL GATE: consigo explicar o porquê, executar o como e investigar o quando algo quebra.</span></label></div>
+          </div>
+        </section>
+    </article>
+</main>
+<aside>
+<div class="panel">
+<h3>// REGRAS DO JOGO</h3>
+<ul class="principles">
+<li>Não conte aula assistida como competência.</li>
+<li>Todo mês termina com um GATE.</li>
+<li>Todo lab deve gerar evidência: repo, comando, screenshot ou post-mortem.</li>
+<li>Quando quebrar, não procure a resposta primeiro. Formule hipótese → teste → evidência.</li>
+<li>CORE primeiro. Bônus só entra se o CORE estiver sólido.</li>
+<li>O ISP Infrastructure Lab é o projeto-fio-condutor.</li>
+</ul>
+</div>
+<div class="panel">
+<h3>// CONSULTA OFICIAL</h3>
+<a class="resource" href="https://docs.aws.amazon.com/" target="_blank" rel="noopener"><span>AWS — documentação oficial</span><b>↗</b></a><a class="resource" href="https://docs.aws.amazon.com/wellarchitected/latest/framework/welcome.html" target="_blank" rel="noopener"><span>AWS — Well-Architected Framework</span><b>↗</b></a><a class="resource" href="https://docs.docker.com/get-started/" target="_blank" rel="noopener"><span>Docker — Get Started</span><b>↗</b></a><a class="resource" href="https://docs.docker.com/" target="_blank" rel="noopener"><span>Docker — Docs</span><b>↗</b></a><a class="resource" href="https://developer.hashicorp.com/terraform/tutorials/aws-get-started" target="_blank" rel="noopener"><span>Terraform — AWS Get Started</span><b>↗</b></a><a class="resource" href="https://registry.terraform.io/providers/hashicorp/aws/latest/docs" target="_blank" rel="noopener"><span>Terraform AWS Provider</span><b>↗</b></a><a class="resource" href="https://docs.github.com/en/actions/get-started/quickstart" target="_blank" rel="noopener"><span>GitHub Actions — Quickstart</span><b>↗</b></a><a class="resource" href="https://github.com/features/actions" target="_blank" rel="noopener"><span>GitHub Actions — página oficial</span><b>↗</b></a><a class="resource" href="https://prometheus.io/docs/" target="_blank" rel="noopener"><span>Prometheus — Docs</span><b>↗</b></a><a class="resource" href="https://grafana.com/docs/" target="_blank" rel="noopener"><span>Grafana — Docs</span><b>↗</b></a><a class="resource" href="https://developer.mozilla.org/en-US/docs/Web/HTTP" target="_blank" rel="noopener"><span>MDN — HTTP</span><b>↗</b></a><a class="resource" href="https://developer.mozilla.org/en-US/docs/Glossary/DNS" target="_blank" rel="noopener"><span>MDN — DNS</span><b>↗</b></a><a class="resource" href="https://man7.org/linux/man-pages/" target="_blank" rel="noopener"><span>Linux man-pages</span><b>↗</b></a><a class="resource" href="https://documentation.ubuntu.com/server/" target="_blank" rel="noopener"><span>Ubuntu Server Docs</span><b>↗</b></a><a class="resource" href="https://git-scm.com/book/en/v2" target="_blank" rel="noopener"><span>Pro Git</span><b>↗</b></a>
+</div>
+<div class="panel">
+<h3>// DEFINIÇÃO DE “SEI ME VIRAR”</h3>
+<p class="principles">Você recebe um servidor/stack que não conhece, consegue mapear arquitetura, verificar DNS/rede/portas, ler logs, identificar a camada que falhou, corrigir com segurança, automatizar a correção e explicar a decisão.</p>
+</div>
+</aside>
+</div>
+<footer>LOCAL SAVE · progresso salvo no navegador via localStorage · ROADMAP TI → ESPAÑA</footer>
+</div>
+<script>
+const KEY="espana-roadmap-v2";
+const boxes=[...document.querySelectorAll('input[data-id]')];
+function load(){try{const s=JSON.parse(localStorage.getItem(KEY)||"{}");boxes.forEach(b=>b.checked=!!s[b.dataset.id]);}catch(e){} update();}
+function save(){const s={};boxes.forEach(b=>s[b.dataset.id]=b.checked);localStorage.setItem(KEY,JSON.stringify(s));update();}
+function update(){const done=boxes.filter(b=>b.checked).length; const pct=Math.round(done/boxes.length*100); document.getElementById('done').textContent=done;document.getElementById('pct').textContent=pct+"%";document.getElementById('bar').style.width=pct+"%";const gates=[...document.querySelectorAll('.gate input')].filter(x=>x.checked).length;document.getElementById('gates').textContent=gates+"/6";document.getElementById('status').textContent=pct===100?"SYSTEM READY // SEI ME VIRAR":pct>=75?"FIELD READY // REFINANDO":pct>=40?"BUILDING // EM CAMPO":"BOOT // COMEÇANDO";}
+boxes.forEach(b=>b.addEventListener('change',save));
+document.querySelectorAll('.collapse').forEach(btn=>btn.addEventListener('click',e=>{e.stopPropagation();const body=btn.closest('.week').querySelector('.week-body');body.classList.toggle('hidden');btn.textContent=body.classList.contains('hidden')?'›':'⌄';}));
+document.querySelectorAll('.week-head').forEach(h=>h.addEventListener('click',()=>{const body=h.parentElement.querySelector('.week-body');body.classList.toggle('hidden');h.querySelector('.collapse').textContent=body.classList.contains('hidden')?'›':'⌄';}));
+function expandAll(){document.querySelectorAll('.week-body').forEach(x=>x.classList.remove('hidden'));document.querySelectorAll('.collapse').forEach(x=>x.textContent='⌄');}
+function collapseAll(){document.querySelectorAll('.week-body').forEach(x=>x.classList.add('hidden'));document.querySelectorAll('.collapse').forEach(x=>x.textContent='›');}
+function filterWeeks(mode){document.querySelectorAll('.week').forEach(w=>{const bs=[...w.querySelectorAll('input')];const d=bs.length&&bs.every(x=>x.checked);w.classList.toggle('hidden',mode==='done'&&!d || mode==='pending'&&d);});}
+function exportState(){const blob=new Blob([localStorage.getItem(KEY)||"{}"],{type:"application/json"});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='espana-roadmap-save.json';a.click();URL.revokeObjectURL(a.href);}
+function importState(){const i=document.createElement('input');i.type='file';i.accept='.json';i.onchange=()=>{const r=new FileReader();r.onload=()=>{localStorage.setItem(KEY,r.result);load();};r.readAsText(i.files[0]);};i.click();}
+function resetState(){if(confirm("Apagar todo o progresso?")){localStorage.removeItem(KEY);load();}}
+load();
+</script>
+</body></html>
